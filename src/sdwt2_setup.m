@@ -83,7 +83,7 @@ function [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
 
 % check dimension of the image tiles is larger than worst-case overlap 
 % (avoid overlap with more than one facet along each dimension)
-err_check = any(dims < (2^J-1)*(max(L(:))-1), 1);
+err_check = any(dims <= (2^J-1)*(max(L(:))-1), 1);
 if (any(err_check))
    error('sdwt2_setup:DimensionError', ['Facet size smaller than the ' ...
        'worst-case overlap required along dimension(s): ', num2str(find(err_check))]);

@@ -12,7 +12,7 @@ N = size(x);
 % sdwt2
 
 % facet definition
-Qy = 5;
+Qy = 2;
 Qx = 3;
 Q = Qx*Qy;
 rg_y = split_range(Qy, N(1));
