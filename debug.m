@@ -1,10 +1,12 @@
 clc; clear all; close all
 format compact
 
+rmpath sdwt2
 addpath data
 addpath src
 
-x = double(imread('data/lena.bmp'))/255;
+rng(1234)
+x = randn(1024, 1024);
 % x = x(1:121, 123:256);
 N = size(x);
 
@@ -12,7 +14,7 @@ N = size(x);
 % sdwt2
 
 % facet definition
-Qy = 2;
+Qy = 3;
 Qx = 3;
 Q = Qx*Qy;
 rg_y = split_range(Qy, N(1));
@@ -44,10 +46,12 @@ L = [2*n,0].'; % filter length
 % Compute auxiliary parameters (see if it can be simplified further)
 % [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
 %     status, offset, offsetL, offsetR, Ncoefs, temLIdxs, temRIdxs] = setup_sdwt2(N, I, dims, nlevel, wavelet, L);
+[I_overlap_ref0, dims_overlap_ref0, I_overlap0, dims_overlap0, ...
+    status0, offset0, pre_offset0, post_offset0, Ncoefs0, pre_offset_dict0, ...
+    post_offset_dict0] = sdwt2_setup_test(N, I, dims, nlevel, wavelet, L);
 [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
     status, offset, pre_offset, post_offset, Ncoefs, pre_offset_dict, ...
     post_offset_dict] = sdwt2_setup(N, I, dims, nlevel, wavelet, L);
-
 
 SPsitLx = cell(Q, 1);
 PsiStu = cell(Q, 1);
@@ -71,10 +75,14 @@ for q = 1:Q
         I_overlap_ref(q, 2)+1:I_overlap_ref(q, 2)+dims_overlap_ref(q, 2)); 
     
     % forward operator [put the following instructions into a parfeval for parallelisation]
-    SPsitLx{q} = sdwt2_sara(x_overlap, I(q, :), dims(q, :), offset, status(q, :), nlevel, wavelet, Ncoefs{q});
+%     sdwt2_sara(x_overlap, I, dims, offset, status, J, wavelet, Ncoefs)
+%     sdwt2_sara_faceting(x_overlap, I, offset, status, J, wavelet, Ncoefs)
+    SPsitLx{q} = sdwt2_sara_faceting(x_overlap, I(q, :), offset, status(q, :), nlevel, wavelet, Ncoefs{q});
     
     % inverse operator (for a single facet) u{q}
-    PsiStu{q} = isdwt2_sara(SPsitLx{q}, I(q, :), dims(q, :), I_overlap{q}, dims_overlap{q}, Ncoefs{q}, nlevel, wavelet, pre_offset_dict{q}, post_offset_dict{q});
+%     isdwt2_sara(SPsitLx, I, dims, I_overlap, dims_overlap, Ncoefs, J, wavelet, pre_offset_dict, post_offset_dict)
+%     isdwt2_sara_faceting(SPsitLx, I, dims, I_overlap, dims_overlap, Ncoefs, J, wavelet, left_offset, right_offset)
+    PsiStu{q} = isdwt2_sara_faceting(SPsitLx{q}, I(q, :), dims(q, :), I_overlap{q}, dims_overlap{q}, Ncoefs{q}, nlevel, wavelet, pre_offset_dict{q}, post_offset_dict{q});
 end
 % 
 LtPsiStu = zeros(N);

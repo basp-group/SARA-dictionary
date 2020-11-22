@@ -1,6 +1,6 @@
 function [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
     status, offset, pre_offset, post_offset, Ncoefs, pre_offset_dict, ...
-    post_offset_dict] = sdwt2_setup(N, I, dims, J, wavelet, L)
+    post_offset_dict] = sdwt2_setup_test(N, I, dims, J, wavelet, L)
 % Setup faceted SARA prior.
 %
 % Compute the auxliary variables (offset, overlap extension per dictionary)
@@ -130,7 +130,7 @@ Ncoefs = cell(Q, 1); % number of coefficients corresponding to each dictionary, 
 for q = 1:Q % define facet parameters    
     % note: extension width and dimensions are amended later, depending on the
     % position of the facet (first/last along each dimension)
-
+    
     %% see if this can be simplified
     
     LnoR = rJ_max + mod(I(q,:),2^J); % extension width for longest filter in the dictionary
@@ -139,7 +139,7 @@ for q = 1:Q % define facet parameters
     for i=1:dim
         if corner(i)<0                                 % if border facet (left or top)
             pre_offset(q,i)= -corner(i);               % index of the first non-zero value in the facet
-            dimensions(i) = dimensions(i) + corner(i);
+            dimensions(i) = dimensions(i) + corner(i); 
             corner(i)=0;
         end
         if corner(i)+dimensions(i)>=N(i)
@@ -148,7 +148,7 @@ for q = 1:Q % define facet parameters
         end
     end
     I_overlap_ref(q, :) = corner;
-    dims_overlap_ref(q, :) = dimensions;
+    dims_overlap_ref(q, :) = dimensions;  
     
     % try to simplify this part (determine whether facet is first, last, or "both" along its dimension)
     for i=1:dim
@@ -170,41 +170,23 @@ for q = 1:Q % define facet parameters
     
     %% to be simplified
     % Compute starting index/size of the overlapping facets
-    I_overlap{q} = zeros(M, 2);
-    dims_overlap{q} = zeros(M, 2);
-    pre_offset_dict{q} = zeros(M, 2);  % offset for left cropping in isdwt2 (see possible simplification)
-    post_offset_dict{q} = zeros(M, 2); % offset for right cropping in isdwt2 (see possible simplification)    
-    % LnoR_M = (rJ + mod(I(q,:),2^J)).*(rJ > 0); % [M,2]
-    % corner = I(q,:)-LnoR_M;
-    % dimensions = I(q,:)+LnoR_M;
-    for m = 1:M
-        if strcmp(wavelet{m}, 'self')
-            I_overlap{q}(m, :) = I(q, :);
-            dims_overlap{q}(m, :) = dims(q, :);
-        else
-            LnoR_m = rJ(m) + mod(I(q,:),2^J);    % extension width
-            corner = I(q,:)-LnoR_m;              % starting index after left extension
-            dimensions = dims(q,:)+LnoR_m;       % dimension after left extension
-            for i=1:dim
-                if corner(i)<0
-                    % pre_offset_dict{q}(m,i)= -corner(m,i);
-                    % dimensions(m,i) = dimensions(m,i) + corner(m,i);
-                    % corner(m,i)=0;
-                    pre_offset_dict{q}(m,i)= -corner(i);
-                    dimensions(i) = dimensions(i) + corner(i);
-                    corner(i)=0;
-                end
-                if corner(i)+dimensions(i)>=N(i)
-                    % post_offset_dict{q}(m,i) = corner(m,i)+dimensions(m,i) - N(i);
-                    % dimensions(m,i) = N(i)-corner(m,i);
-                    post_offset_dict{q}(m,i) = corner(i)+dimensions(i) - N(i);
-                    dimensions(i) = N(i)-corner(i);
-                end
-            end
-            I_overlap{q}(m,:) = corner;
-            dims_overlap{q}(m,:) = dimensions;
-        end
+    LnoR_m = rJ + mod(I(q,:),2^J).*(rJ > 0); % extension width (rJ = 0 only for the Dirac basis : no extension in this case, hence the additional condition)
+    corner = I(q,:)-LnoR_m;                  % starting index after left extension
+    dimensions = dims(q,:)+LnoR_m;           % dimension after left extension
+    pre_offset_dict{q} = zeros(M, 2);
+    post_offset_dict{q} = zeros(M, 2);
+    for i=1:dim
+        id = corner(:,i)<0;
+        pre_offset_dict{q}(id,i)= -corner(id,i);
+        dimensions(id,i) = dimensions(id,i) + corner(id,i);
+        corner(id,i)=0;
+
+        id = corner(:,i)+dimensions(:,i)>=N(i);
+        post_offset_dict{q}(id,i) = corner(id,i)+dimensions(id,i)-N(i);
+        dimensions(id,i) = N(i)-corner(id,i);
     end
+    I_overlap{q} = corner;        
+    dims_overlap{q} = dimensions;
     
     %% to be simplified (only change name of variables)
     % Compute number of coefficients for each dictionary at each scale
