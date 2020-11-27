@@ -81,13 +81,14 @@ classdef Sdwt2Test < matlab.unittest.TestCase
             % SARA wavelet dictionary
             n = 8;
             nlevel = 3;
-            M = numel(n)+1;
+            M = numel(n); %+1;
             wavelet = cell(M, 1);
-            for m = 1:M-1
+            for m = 1:M
                 wavelet{m} = ['db', num2str(n(m))];
             end
-            wavelet{end} = 'self';
-            L = [2*n,0].'; % filter length
+            %wavelet{end} = 'self';
+            %L = [2*n,0].'; % filter length
+            L = 2*(n.'); % filter length
 
             [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
                 status, offset, pre_offset, post_offset, Ncoefs, ...

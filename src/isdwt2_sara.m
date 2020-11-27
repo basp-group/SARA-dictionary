@@ -43,10 +43,10 @@ start = 1;       % current position in the vector SPsitLx (contribution from sev
 start_coefs = 1; % current posisiton in the Ncoefs matrix (get number of coefficients at each scale for a each basis)
 
 % position of the reconstructed dictionary facet within the global facet
-start_facet = I_overlap-min(I_overlap)+1; % [M, 2]
+start_facet = I_overlap-min(I_overlap, [], 1)+1; % [M, 2]
 end_facet = start_facet+dims_overlap-1;   % [M, 2]
 
-PsiSty = zeros(max(dims_overlap));
+PsiSty = zeros(max(dims_overlap, [], 1));
 
 for m = 1:M
     % inverse transform

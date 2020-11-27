@@ -21,7 +21,7 @@ function [dims, s] = n_wavelet_coefficients(m, N, extension_mode, nlevel)
 %%
 % Reference:
 % Discrete wavelet transform of finite signals: detailed study of the
-% algorithm, P. Rajmic, Z. Prusa, Initernational Journal of Wavelets,
+% algorithm, P. Rajmic, Z. Prusa, International Journal of Wavelets,
 % Multiresolution and Information Processing, 12(1) 1450001 (2014).
 %-------------------------------------------------------------------------%
 % Code: P.-A. Thouvenin, [04/04/2019]

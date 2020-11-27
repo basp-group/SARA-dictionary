@@ -42,11 +42,11 @@ function PsiSty = isdwt2_sara_faceting(SPsitLx, I, dims, I_overlap, dims_overlap
     start_coefs = 1; % current posisiton in the Ncoefs matrix (get number of ceofficients at each scale for a each basis)
     
     % position of the reconstructed dictionary facet inside the global facet
-    start_facet = I_overlap-min(I_overlap)+1; % [M, 2]
+    start_facet = I_overlap-min(I_overlap, [], 1)+1; % [M, 2]
     end_facet = start_facet+dims_overlap-1; % [M, 2]
     
     % Ncoefs = reshape(Ncoefs(1:end-1, :), [J+1, M-1, 2]);
-    PsiSty = zeros(max(dims_overlap));
+    PsiSty = zeros(max(dims_overlap, [], 1));
     
     % precompute s
     % Ncoefs_tmp = reshape(Ncoefs(1:end-1, :), [J+1, M-1, 2]);
