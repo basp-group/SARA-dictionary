@@ -48,7 +48,6 @@ L = [2*n,0].'; % filter length
     status, offset, pre_offset, post_offset, Ncoefs, pre_offset_dict, ...
     post_offset_dict] = sdwt2_setup(N, I, dims, nlevel, wavelet, L);
 
-
 SPsitLx = cell(Q, 1);
 PsiStu = cell(Q, 1);
 for q = 1:Q

@@ -1,13 +1,12 @@
 clc; clear all; close all
 format compact
 
-rmpath sdwt2
 addpath data
 addpath src
 
 rng(1234)
 x = randn(1024, 1024);
-% x = x(1:121, 123:256);
+x = x(1:951, 43:1024);
 N = size(x);
 
 %%

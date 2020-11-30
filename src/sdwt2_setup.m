@@ -9,8 +9,7 @@ function [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
 %
 % Args:
 %     N (array): full image dimension. [1,2]
-%     I (array): start index of each image tile (using 0-indexing). 
-%                     [Q,2]
+%     I (array): start index of each image tile (using 0-indexing) [Q,2]
 %     dims (array): dimensions of the image tiles. [Q,2]
 %     J (int): number of wavelet decomposition levels.
 %     wavelet (cell): name of the wavelet dictionaries. {M,1}
@@ -51,6 +50,11 @@ function [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
 %     post_offset_dict (array): for each dictionary, number of 
 %                    coefficients to be cropped from the end of the global
 %                    facet [M,2].
+%     Ij (cell):     starting index of the correct wavelet coefficients for
+%                    dictionary at each level of the decomposition 
+%                    {Q}[(M-1)*(J+1)+1,2] if Dirac dict. is present
+%
+% Note: all indexes reported above (I_*) start from 0 (not from 1).
 
 %
 %-------------------------------------------------------------------------%
@@ -126,6 +130,7 @@ else
    s_Ncoefs = M*(J+1);
 end
 Ncoefs = cell(Q, 1); % number of coefficients corresponding to each dictionary, at each scale of interest
+% Ij = cell(Q, 1);   % starting coefficients of each "facet" at each scale (indexing within wavelet coefficients) 
 
 for q = 1:Q % define facet parameters    
     % note: extension width and dimensions are amended later, depending on the
@@ -212,21 +217,24 @@ for q = 1:Q % define facet parameters
     idx_current = I(q, :);              % start index current facet
     idx_next = dims(q,:) + idx_current; % start index next facet
     id_Ncoefs = 0;
+    %Ij{q} = zeros(s_Ncoefs,2);
     for m = 1:M
         if ~strcmp(wavelet{m}, 'self')
             for d = 1:dim
-                idx_current_j = floor(idx_current(d)./(2.^(1:J).'));
+                idx_current_j = floor(idx_current(d)./(2.^(1:J).')); % start index current facet at scale j
                 if status(q, d) > 0 || isnan(status(q, d)) % last / first & last
                     idx_next_j = floor(2.^(-(1:J).').*idx_next(d)+(1-2.^(-(1:J).'))*(L(m)-1));
                 else
                     idx_next_j = floor(idx_next(d)./(2.^(1:J).'));
                 end
                 Ncoefs{q}(id_Ncoefs+1:id_Ncoefs+J,d) = idx_next_j - idx_current_j; % [P.-A.] (4.19)
+                %Ij{q}(id_Ncoefs+1:id_Ncoefs+J,d) = idx_current_j;
             end
             Ncoefs{q}(id_Ncoefs+J+1,:) = Ncoefs{q}(id_Ncoefs+J,:);
             id_Ncoefs = id_Ncoefs + (J+1);
         else
             Ncoefs{q}(id_Ncoefs+1, :) = dims(q, :);
+            %Ij{q}(id_Ncoefs+1, :) = [0, 0];
             id_Ncoefs = id_Ncoefs + 1;
         end
     end
