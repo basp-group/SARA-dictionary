@@ -1,19 +1,24 @@
 clc; clear all; close all
 format compact
 
+addpath archive/ch6_multidimensional_SegDWT/
 addpath data
 addpath src
+addpath lib
 
-rng(1234)
-x = randn(1024, 1024);
-% x = x(1:951, 43:1024);
+x = double(imread('data/lena.bmp'))/255;
+% x = x(1:121, 123:256);
 N = size(x);
+
+% TODO: just compare the following:
+% 1. compute weights the normal way, apply adjoint using those weights
+% 2. idem with the faceted transform
 
 %%
 % sdwt2
 
 % facet definition
-Qy = 3;
+Qy = 2;
 Qx = 3;
 Q = Qx*Qy;
 rg_y = split_range(Qy, N(1));
@@ -31,26 +36,37 @@ I = segDims(:, 1:2);
 dims = segDims(:, 3:4);
 
 % Wavelet parameters
-n = 1:8;
+n = 4;
 nlevel = 3;
-M = numel(n)+1;
-dwtmode('zpd','nodisp');
+M = numel(n);
+ext_mode = 'zpd';
+dwtmode(ext_mode,'nodisp');
 wavelet = cell(M, 1);
-for m = 1:M-1
+for m = 1:M
     wavelet{m} = ['db', num2str(n(m))];
 end
-wavelet{end} = 'self';
-L = [2*n,0].'; % filter length
+L = [2*n].'; % filter length
 
+%%
+dwtmode(ext_mode, 'nodisp');
+[Psi, Psit] = op_sp_wlt_basis(wavelet, nlevel, N(1), N(2));
+[~, s] = n_wavelet_coefficients(L, N, ext_mode, nlevel);
+% s = s+prod(N);
+global_v = Psit(x);
+
+%%
 % Compute auxiliary parameters (see if it can be simplified further)
 % [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
 %     status, offset, offsetL, offsetR, Ncoefs, temLIdxs, temRIdxs] = setup_sdwt2(N, I, dims, nlevel, wavelet, L);
-[I_overlap_ref0, dims_overlap_ref0, I_overlap0, dims_overlap0, ...
-    status0, offset0, pre_offset0, post_offset0, Ncoefs0, pre_offset_dict0, ...
-    post_offset_dict0] = sdwt2_setup_test(N, I, dims, nlevel, wavelet, L);
 [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
     status, offset, pre_offset, post_offset, Ncoefs, pre_offset_dict, ...
     post_offset_dict] = sdwt2_setup(N, I, dims, nlevel, wavelet, L);
+
+%% Test with the old segdwt version from Prusa
+
+segments = segDWT2DtoSegments(x,wavelet{1},nlevel,segDims);
+
+%%
 
 SPsitLx = cell(Q, 1);
 PsiStu = cell(Q, 1);
@@ -74,14 +90,10 @@ for q = 1:Q
         I_overlap_ref(q, 2)+1:I_overlap_ref(q, 2)+dims_overlap_ref(q, 2)); 
     
     % forward operator [put the following instructions into a parfeval for parallelisation]
-%     sdwt2_sara(x_overlap, I, dims, offset, status, J, wavelet, Ncoefs)
-%     sdwt2_sara_faceting(x_overlap, I, offset, status, J, wavelet, Ncoefs)
-    SPsitLx{q} = sdwt2_sara_faceting(x_overlap, I(q, :), offset, status(q, :), nlevel, wavelet, Ncoefs{q});
+    SPsitLx{q} = sdwt2_sara(x_overlap, I(q, :), dims(q, :), offset, status(q, :), nlevel, wavelet, Ncoefs{q});
     
     % inverse operator (for a single facet) u{q}
-%     isdwt2_sara(SPsitLx, I, dims, I_overlap, dims_overlap, Ncoefs, J, wavelet, pre_offset_dict, post_offset_dict)
-%     isdwt2_sara_faceting(SPsitLx, I, dims, I_overlap, dims_overlap, Ncoefs, J, wavelet, left_offset, right_offset)
-    PsiStu{q} = isdwt2_sara_faceting(SPsitLx{q}, I(q, :), dims(q, :), I_overlap{q}, dims_overlap{q}, Ncoefs{q}, nlevel, wavelet, pre_offset_dict{q}, post_offset_dict{q});
+    PsiStu{q} = isdwt2_sara(SPsitLx{q}, I(q, :), dims(q, :), I_overlap{q}, dims_overlap{q}, Ncoefs{q}, nlevel, wavelet, pre_offset_dict{q}, post_offset_dict{q});
 end
 % 
 LtPsiStu = zeros(N);
@@ -92,3 +104,28 @@ for q = 1:Q
 end
 
 err = norm(LtPsiStu(:) - x(:));
+
+%% Comparing coefficients to those of the original interface from Prusa
+seg = segments{6,1}{4,1};
+buffer_prusa = [];
+for k = 1:size(seg, 1)
+    for l = 1:size(seg, 2)
+        buffer_prusa = [buffer_prusa, seg{k,l}(:).'];
+    end
+end
+buffer_prusa = buffer_prusa.';
+err_ref = norm(buffer_prusa - SPsitLx{q});
+
+%% Comparing coefficients to the Matlab implementation (sequential SARA)
+% adapting Prusa's codes to do that
+
+% compare size (total number of faceted wavelet coeffs and standard wavelet coeffs)
+s_faceted = 0;
+for q = 1:Q
+    s_faceted = s_faceted+numel(SPsitLx{q});
+end
+
+%%
+
+
+
