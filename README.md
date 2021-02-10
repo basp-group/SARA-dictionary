@@ -8,4 +8,4 @@ The original codes [available online](https://www.utko.fekt.vut.cz/~rajmic/segwt
 
 >P.-A. Thouvenin, A. Abdulaziz, M. Jiang, A. Dabbech, A. Repetti, A. Jackson, J.-P. Thiran, Y. Wiaux, Parallel faceted imaging in radio interferometry via proximal splitting (Faceted HyperSARA), submitted, [preprint available online](https://arxiv.org/abs/2003.07358), Jan. 2020.  
 
-**Authors/contributors:** P.-A. Thouvenin, A. Abdulaziz, M. Jiang, A. Dabbech.
+**Contributors:** P.-A. Thouvenin, A. Dabbech.
