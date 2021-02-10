@@ -83,3 +83,9 @@ for q = 1:Q
 end
 
 err = norm(LtPsiStu(:) - x(:));
+
+%% Test consistency with non-faceted SARA prior
+% TODO: need to re-order coefficients from faceted version to compare
+% against the non-faceted version
+% 
+% [Psi, Psit] = op_sp_wlt_basis(wavelet, nlevel, N(1), N(2));
