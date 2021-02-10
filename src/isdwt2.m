@@ -1,30 +1,30 @@
 function PsiSty = isdwt2(SPsitLx, I, dims, Ncoefs, lo, hi, J, pre_offset, post_offset)
 % Inverse facet wavelet transform.
 %
-% Inverse operator to compute the contribution of a single facet to the 
-% full wavelet transform. 
+% Inverse operator to compute the contribution of a single facet to the
+% full wavelet transform.
 %
 % Args:
 %     SPsitLx (array): wavelet coefficients obtained from the facet of
 %                          interest.
 %     I (array): starting index of the tile (no overlap) [1,2].
 %     dims (array): dimension of tbe underlying tile (no overlap) [1,2].
-%     Ncoefs (array): dimension of the wavelet facets for each level 
-%                          of the decomposition level, for each dictionary 
+%     Ncoefs (array): dimension of the wavelet facets for each level
+%                          of the decomposition level, for each dictionary
 %                          [M(J+1),2] {from level 1 to J}.
 %     lo (array): low-pass synthesis wavelet filter. [1,L]
 %     hi (array): high-pass synthesis wavelet filter. [1,L]
 %     J (int): number of decomposition levels considered.
 %     wavelet (cell): name of the wavelet dictionaries considered {M,1}.
-%     pre_offset (array): number of coefficients to be cropped from 
+%     pre_offset (array): number of coefficients to be cropped from
 %                          the start of the reconstructed facet [1,2].
-%     post_offset (array): number of coefficients to be cropped at 
+%     post_offset (array): number of coefficients to be cropped at
 %                          the end of the reconstructed facet [1,2].
 %
 % Returns:
 %     SPsitLx (array): inverse transform of the input matrix.
 %
-    
+
 %
 %-------------------------------------------------------------------------%
 %%
@@ -47,7 +47,7 @@ start = s-sj;
 in = reshape(SPsitLx(start+1:sj+start), Ncoefs(J+1,:));
 
 % levels J-1 to 1 (index J to 2)
-for j=J:-1:2  
+for j=J:-1:2
     rows = Ncoefs(j-1,1)+rJ(j-1,1);
     sj = prod(Ncoefs(j,:));
     start = start - 3*sj;
@@ -66,7 +66,7 @@ for j=J:-1:2
     
     % upsamling, convolution and cropping along the rows
     cols = Ncoefs(j-1,2)+rJ(j-1,2);
-    in = upConv2r(tempRows, lo, rows, cols) + upConv2r(tempRows2, hi, rows, cols);  
+    in = upConv2r(tempRows, lo, rows, cols) + upConv2r(tempRows2, hi, rows, cols);
 end
 
 % level 0
@@ -85,7 +85,7 @@ tempRows2 = upConv2c(coefTemp(:,:,2), lo, rows, cols) + upConv2c(coefTemp(:,:,3)
 % upsamling, convolution and cropping along the rows
 rJ = (2^J-1)*(length(lo)-2) + mod(I(2),2^J);
 cols = dims(2) + rJ;
-PsiSty = upConv2r(tempRows, lo, rows, cols) + upConv2r(tempRows2, hi, rows, cols); 
+PsiSty = upConv2r(tempRows, lo, rows, cols) + upConv2r(tempRows2, hi, rows, cols);
 
 PsiSty = PsiSty(pre_offset(1)+1:end-post_offset(1),pre_offset(2)+1:end-post_offset(2));
 

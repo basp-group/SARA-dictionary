@@ -45,9 +45,9 @@ L = [2*n,0].'; % filter length
 % Compute auxiliary parameters (see if it can be simplified further)
 % [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
 %     status, offset, offsetL, offsetR, Ncoefs, temLIdxs, temRIdxs] = setup_sdwt2(N, I, dims, nlevel, wavelet, L);
-[I_overlap_ref0, dims_overlap_ref0, I_overlap0, dims_overlap0, ...
-    status0, offset0, pre_offset0, post_offset0, Ncoefs0, pre_offset_dict0, ...
-    post_offset_dict0] = sdwt2_setup_test(N, I, dims, nlevel, wavelet, L);
+% [I_overlap_ref0, dims_overlap_ref0, I_overlap0, dims_overlap0, ...
+%     status0, offset0, pre_offset0, post_offset0, Ncoefs0, pre_offset_dict0, ...
+%     post_offset_dict0] = sdwt2_setup_test(N, I, dims, nlevel, wavelet, L);
 [I_overlap_ref, dims_overlap_ref, I_overlap, dims_overlap, ...
     status, offset, pre_offset, post_offset, Ncoefs, pre_offset_dict, ...
     post_offset_dict] = sdwt2_setup(N, I, dims, nlevel, wavelet, L);
@@ -55,18 +55,16 @@ L = [2*n,0].'; % filter length
 SPsitLx = cell(Q, 1);
 PsiStu = cell(Q, 1);
 for q = 1:Q
-    
-    full_facet_size = dims_overlap_ref(q,:) + pre_offset(q,:) + post_offset(q,:); % full facet-size, including 0-padding (pre_offset / post_offset 0s added)
+    % full facet-size, including 0-padding (pre_offset / post_offset 0s added)
     % I_overlap_ref / dims_overlap_ref do not include the zeros added!
     % only indicates portion to be extracted from the global image to
     % create the local facet
+    full_facet_size = dims_overlap_ref(q,:) + pre_offset(q,:) + post_offset(q,:); 
     
-    x_overlap = zeros(full_facet_size); % size of the the image extension is actually done here! to be possibly changed! (if other than zero padding)
-    % in practice, we are thus computing larger convolution all the way,
-    % which may explain the relatively poor performance of the Matlab
-    % version?
-    % wextend here (to be seen) [possibly move to the place of the worker
-    % (evaluate impact precisely on the timing of the algorithm)]
+    % size of the the image extension is actually specified here! to be 
+    % possibly changed (if other than zero padding)
+    % in practice, we are thus computing larger convolution all the way
+    x_overlap = zeros(full_facet_size); 
     
     x_overlap(pre_offset(q,1)+1:end-post_offset(q,1),...
             pre_offset(q,2)+1:end-post_offset(q,2))...
@@ -74,13 +72,9 @@ for q = 1:Q
         I_overlap_ref(q, 2)+1:I_overlap_ref(q, 2)+dims_overlap_ref(q, 2)); 
     
     % forward operator [put the following instructions into a parfeval for parallelisation]
-%     sdwt2_sara(x_overlap, I, dims, offset, status, J, wavelet, Ncoefs)
-%     sdwt2_sara_faceting(x_overlap, I, offset, status, J, wavelet, Ncoefs)
     SPsitLx{q} = sdwt2_sara_faceting(x_overlap, I(q, :), offset, status(q, :), nlevel, wavelet, Ncoefs{q});
     
     % inverse operator (for a single facet) u{q}
-%     isdwt2_sara(SPsitLx, I, dims, I_overlap, dims_overlap, Ncoefs, J, wavelet, pre_offset_dict, post_offset_dict)
-%     isdwt2_sara_faceting(SPsitLx, I, dims, I_overlap, dims_overlap, Ncoefs, J, wavelet, left_offset, right_offset)
     PsiStu{q} = isdwt2_sara_faceting(SPsitLx{q}, I(q, :), dims(q, :), I_overlap{q}, dims_overlap{q}, Ncoefs{q}, nlevel, wavelet, pre_offset_dict{q}, post_offset_dict{q});
 end
 % 

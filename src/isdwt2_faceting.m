@@ -39,20 +39,19 @@ function PsiSty = isdwt2_faceting(SPsitLx, I, dims, Ncoefs, wavelet, J, temLIdxs
     
     %% Crop
     PsiSty = PsiSty(temLIdxs(1):size(PsiSty,1)-temRIdxs(1),temLIdxs(2):size(PsiSty,2)-temRIdxs(2));
-    end
+end
     
-    %% internal function
-    function y = upConv2c(x, w, rows)
+%% internal function
+function y = upConv2c(x, w, rows)
     z = zeros(2*size(x, 1), size(x,2));
     z(1:2:end, :) = x;
     y = conv2(z, w.');
     y = y(1:rows, :);
-    end
+end
     
-    function y = upConv2r(x, w, cols)
+function y = upConv2r(x, w, cols)
     z = zeros(size(x,1), 2*size(x, 2));
     z(:, 1:2:end) = x;
     y = conv2(z, w);
     y = y(:, 1:cols);
-    
-    end
+end
