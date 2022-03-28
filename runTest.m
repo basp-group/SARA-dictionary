@@ -1,1 +1,1 @@
-runtests('tests')
+runtests('tests');

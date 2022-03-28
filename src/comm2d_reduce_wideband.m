@@ -1,35 +1,42 @@
-function x_overlap = comm2d_reduce_wideband(x_overlap, overlap_q, Qy, Qx, Qc)
+function x_overlap = comm2d_reduce_wideband(x_overlap, overlap_size, Qy, Qx, Qc)
 % Reduce overlapping borders between contiguous facets (2D).
 %
-% Additive reduction of the duplicated area (overlap regions) for a 2D 
+% Additive reduction of the duplicated area (overlap regions) for a 2D
 % image tessellation (2D communication grid).
 %
-% Args:
-%     x_overlap (array): spatial facet considered (with overlap).
-%     overlap_q (array): size of the left and top facet extensions 
-%                             [2,1].
-%     Qy (int): number of spatial facets (along the y axis).
-%     Qx (int): number of spatial facets (along the x axis).
-%     Qc (int): number of spectral facets (along the z axis).
+% Parameters
+% ----------
+% x_overlap : double[:, :, :]
+%     Spatial facet considered (with overlap).
+% overlap_size : int[2, 1]
+%     Size of the left and top facet extensions [2,1].
+% Qy : int
+%     Number of spatial facets (along the y axis).
+% Qx : int
+%     Number of spatial facets (along the x axis).
+% Qc : int
+%     Number of spectral facets (along the z axis).
 %
-% Returns:
-%     x_overlap (array): updated spatial facet.
+% Returns
+% -------
+% x_overlap : double[:, :, :]
+%     Updated spatial facet.
 %
 
-%-------------------------------------------------------------------------%
+% -------------------------------------------------------------------------%
 %%
 % Code: P.-A. Thouvenin.
 % [22/03/2019] final debug, code ok
-% [03/04/2019] add basic support for wideband, see if further modifications 
+% [03/04/2019] add basic support for wideband, see if further modifications
 % are needed later on (for the spectral splitting)
-%-------------------------------------------------------------------------%
+% -------------------------------------------------------------------------%
 %%
 
 % communications to aggregate information
-[i, q] = ind2sub([Qc, Qy*Qx], labindex);
+[i, q] = ind2sub([Qc, Qy * Qx], labindex);
 [qy, qx] = ind2sub([Qy, Qx], q);
 
-get_index = @(i, q) (q-1)*Qc + i;
+get_index = @(i, q) (q - 1) * Qc + i;
 
 % destination
 dest_vert = []; % workers sending information to the current worker
@@ -49,35 +56,35 @@ data_diag = [];
 % define communications (to N, W, NW)
 if qy > 1
     % N communication (i, (qy-1, qx)) -> (i, q = (qx-1)*Qy + qy-1)
-    dest_vert = get_index(i, (qx-1)*Qy + qy-1);
-    data_vert = x_overlap(1:overlap_q(1), 1:end, :);
+    dest_vert = get_index(i, (qx - 1) * Qy + qy - 1);
+    data_vert = x_overlap(1:overlap_size(1), 1:end, :);
     if qx > 1
         % NW communication (qy-1, qx-1) -> q = (qx-2)*Qy + qy-1
-        dest_diag = get_index(i, (qx-2)*Qy + qy-1);
-        data_diag = x_overlap(1:overlap_q(1), 1:overlap_q(2), :); 
-        % another set of variables overlap_q will be needed to update the borders (adjoint communicationss)
+        dest_diag = get_index(i, (qx - 2) * Qy + qy - 1);
+        data_diag = x_overlap(1:overlap_size(1), 1:overlap_size(2), :);
+        % another set of variables overlap_size will be needed to update the borders (adjoint communicationss)
     end
 end
 
 if qx > 1
     % W communication (qy, qx-1) -> q = (qx-2)*Qy + qy
-    dest_horz = get_index(i, (qx-2)*Qy + qy);
-    data_horz = x_overlap(1:end, 1:overlap_q(2), :);
+    dest_horz = get_index(i, (qx - 2) * Qy + qy);
+    data_horz = x_overlap(1:end, 1:overlap_size(2), :);
 end
 
 % define receptions (from S, E, SE)
 if qy < Qy
     % S reception (qy+1, qx) -> q = (qx-1)*Qy + qy+1
-    src_vert = get_index(i, (qx-1)*Qy + qy+1);
+    src_vert = get_index(i, (qx - 1) * Qy + qy + 1);
     if qx < Qx
         % SE reception (qy+1, qx+1) -> q = qx*Qy + qy+1
-        src_diag = get_index(i, qx*Qy + qy+1);
+        src_diag = get_index(i, qx * Qy + qy + 1);
     end
 end
 
 if qx < Qx
     % E reception (qy, qx+1) -> q = qx*Qy + qy
-    src_horz = get_index(i, qx*Qy + qy);
+    src_horz = get_index(i, qx * Qy + qy);
 end
 
 % is there a way to do everything at once? (i.e., reduce the
@@ -92,18 +99,18 @@ rcv_diag_data = labSendReceive(dest_diag, src_diag, data_diag);
 
 % update portions of the overlapping facet with the received data (aggregate and sum)
 if ~isempty(rcv_vert_data) % from S
-    x_overlap(end-size(rcv_vert_data, 1)+1:end, 1:end, :) = ...
-        x_overlap(end-size(rcv_vert_data, 1)+1:end, 1:end, :) + rcv_vert_data;
+    x_overlap(end - size(rcv_vert_data, 1) + 1:end, 1:end, :) = ...
+        x_overlap(end - size(rcv_vert_data, 1) + 1:end, 1:end, :) + rcv_vert_data;
 end
 
 if ~isempty(rcv_horz_data) % from E
-    x_overlap(1:end, end-size(rcv_horz_data, 2)+1:end, :) = ...
-        x_overlap(1:end, end-size(rcv_horz_data, 2)+1:end, :) + rcv_horz_data;
+    x_overlap(1:end, end - size(rcv_horz_data, 2) + 1:end, :) = ...
+        x_overlap(1:end, end - size(rcv_horz_data, 2) + 1:end, :) + rcv_horz_data;
 end
 
 if ~isempty(rcv_diag_data) % from SE
-    x_overlap(end-size(rcv_diag_data, 1)+1:end, end-size(rcv_diag_data, 2)+1:end, :) = ...
-        x_overlap(end-size(rcv_diag_data, 1)+1:end, end-size(rcv_diag_data, 2)+1:end, :) + rcv_diag_data;
+    x_overlap(end - size(rcv_diag_data, 1) + 1:end, end - size(rcv_diag_data, 2) + 1:end, :) = ...
+        x_overlap(end - size(rcv_diag_data, 1) + 1:end, end - size(rcv_diag_data, 2) + 1:end, :) + rcv_diag_data;
 end
 
 end

@@ -86,4 +86,7 @@ octave-workspace
 !.vscode/extensions.json
 *.code-workspace
 
+# documentation
+docs/build
+
 # End of https://www.toptal.com/developers/gitignore/api/linux,macos,matlab,vscode

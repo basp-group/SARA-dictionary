@@ -1,15 +1,20 @@
-function x = col(x)    
+function x = col(x)
 % Reshape array as a column vector.
 %
 % Reshape any input array/matrix as a column vector.
 %
-% Args:
-%     x (array): input matrix.
+% Parameters
+% ----------
+% x : array
+%     Input array.
 %
-% Returns:
-%     (array): reshaped 1D column array. 
+% Returns
+% -------
+% array
+%     Vectorized form (column-major ordering) of the input array.
+%
 
-%-------------------------------------------------------------------------%
+% -------------------------------------------------------------------------%
 %%
 x = x(:);
 
