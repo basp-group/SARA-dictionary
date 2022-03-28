@@ -1,74 +1,154 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Faceted wavelet transform --by basp-group--</title>
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Faceted wavelet transform</h1>
-        <p>MATLAB source code</p>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SARA-dictionary &mdash; SARA-dictionary 0-56-gc88230d documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup" href="setup.html" /> 
+</head>
 
-        <p class="view"><a href="https://github.com/basp-group/faceted-wavelet-transform">View the Project on GitHub <small>basp-group/faceted-wavelet-trasnform</small></a></p>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> SARA-dictionary
+          </a>
+              <div class="version">
+                0-56-gc88230d
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation &amp; references</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src.html">src module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">lib module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">SARA-dictionary</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>SARA-dictionary</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sara-dictionary">
+<h1>SARA-dictionary<a class="headerlink" href="#sara-dictionary" title="Permalink to this headline"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">SARA-dictionary</span></code> contains a MATLAB implementation of the “segment-wise 2D discrete wavelet transform” described in <span id="id1">[<a class="reference internal" href="biblio.html#id4" title="Zdeněk Pruša. Segmentwise discrete wavelet transform. PhD thesis, Brno university of technology, 2012.">Prusa2012</a>]</span>,
+with a serial and a distributed implementation of the SARA wavelet dictionary
+<span id="id2">[<a class="reference internal" href="biblio.html#id2" title="R. E. Carrillo, J. D. McEwen, and Y. Wiaux. Sparsity averaging reweighted analysis (SARA): a novel algorithm for radio-interferometric imaging. Monthly Notices of the Royal Astronomical Society, 426(2):1223–1234, 2012.">Carrillo2012</a>]</span>. A serial implementation is also proposed.</p>
+<p>The original codes published by the author of <span id="id3">[<a class="reference internal" href="biblio.html#id4" title="Zdeněk Pruša. Segmentwise discrete wavelet transform. PhD thesis, Brno university of technology, 2012.">Prusa2012</a>]</span>, available <a class="reference external" href="https://www.utko.fekt.vut.cz/~rajmic/segwt/index_en.html">online</a>, have been significantly refactored to implement the SARA wavelet dictionary described in
+<span id="id4">[<a class="reference internal" href="biblio.html#id2" title="R. E. Carrillo, J. D. McEwen, and Y. Wiaux. Sparsity averaging reweighted analysis (SARA): a novel algorithm for radio-interferometric imaging. Monthly Notices of the Royal Astronomical Society, 426(2):1223–1234, 2012.">Carrillo2012</a>]</span>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SARA-dictionary</span></code> library is a core dependency of the
+<a class="reference external" href="https://github.com/basp-group/Faceted-Hyper-SARA">Faceted-Hyper-SARA</a> wideband imaging library for radio-interferometry.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This project is under active development.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Installation &amp; references</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#representative-example-and-tests">Representative example and tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributors.html#active-contributors">Active contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src.html">src module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">lib module</a></li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="mat-modindex.html"><span class="std std-ref">MATLAB Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
 
 
-        <ul>
-          <li><a href="https://github.com/basp-group/faceted-wavelet-transform/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/basp-group/faceted-wavelet-transform/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/basp-group/faceted-wavelet-transform">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-
-      <section>
-      <h2>Faceted wavelet transform</h2>
-      <!--<p>The code will be made available soon.</p>-->
-      </section>
-
-      <section>
-      <h3>
-      <a id="authors" class="anchor" href="#authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors</h3>
-
-      <ul>
-        <li>Dr. Pierre-Antoine Thouvenin</li>
-      </ul>
-
-      <h3>
-      <a id="article" class="anchor" href="#article" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Article</h3>
-
-      <p>P.-A. Thouvenin, A. Abdulaziz, M. Jiang, A. Dabbech, A. Repetti, A. Jackson, J.-P. Thiran, Y. Wiaux -
-      <em><strong>Parallel faceted imaging in radio interferometry via proximal splitting (Faceted HyperSARA)</strong>, 
-      submitted, <a href="https://arxiv.org/abs/2003.07358">preprint available online</a>, Jan. 2020.  
-      </em></p>
-
-      </section>
-
-
-      <footer>
-              <p>This project is maintained by <a href="https://github.com/basp-group">basp-group</a></p>
-              <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-right" title="Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-82326814-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-     </script>
 
-  </body>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, P.-A. Thouvenin, A. Dabbech, M. Jiang, A. Jackson, Y. Wiaux, A. Abdulaziz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>
-

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src module &mdash; SARA-dictionary 0-56-gc88230d documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="lib module" href="lib.html" />
+    <link rel="prev" title="References" href="biblio.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SARA-dictionary
+          </a>
+              <div class="version">
+                0-56-gc88230d
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation &amp; references</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">src module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">lib module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SARA-dictionary</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>src module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-module">
+<h1>src module<a class="headerlink" href="#src-module" title="Permalink to this headline"></a></h1>
+<p>Core implementation of the serial and faceted SARA dictionary (based on <span id="id1">[<a class="reference internal" href="biblio.html#id4" title="Zdeněk Pruša. Segmentwise discrete wavelet transform. PhD thesis, Brno university of technology, 2012.">Prusa2012</a>]</span> for the faceted version).</p>
+<span class="target" id="module-src"></span><dl class="mat function">
+<dt class="sig sig-object mat" id="src.col">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.col" title="Permalink to this definition"></a></dt>
+<dd><p>Reshape array as a column vector.</p>
+<p>Reshape any input array/matrix as a column vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>array</em>) – Input array.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Vectorized form (column-major ordering) of the input array.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.comm2d_reduce">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">comm2d_reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_overlap</span></em>, <em class="sig-param"><span class="pre">overlap_size</span></em>, <em class="sig-param"><span class="pre">Qy</span></em>, <em class="sig-param"><span class="pre">Qx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.comm2d_reduce" title="Permalink to this definition"></a></dt>
+<dd><p>Reduce overlapping borders between contiguous facets (2D).</p>
+<p>Additive reduction of the duplicated area (overlap regions) for a 2D
+image tessellation (2D communication grid).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_overlap</strong> (<em>double[:, :]</em>) – Spatial facet considered (with overlap).</p></li>
+<li><p><strong>overlap_size</strong> (<em>int[2, 1]</em>) – Size of the left and top facet extensions [2,1].</p></li>
+<li><p><strong>Qy</strong> (<em>int</em>) – Number of spatial facets along the y axis.</p></li>
+<li><p><strong>Qx</strong> (<em>int</em>) – Number of spatial facets along the x axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>x_overlap</strong> – Updated spatial facet.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>double[:, :]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.comm2d_reduce_wideband">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">comm2d_reduce_wideband</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_overlap</span></em>, <em class="sig-param"><span class="pre">overlap_size</span></em>, <em class="sig-param"><span class="pre">Qy</span></em>, <em class="sig-param"><span class="pre">Qx</span></em>, <em class="sig-param"><span class="pre">Qc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.comm2d_reduce_wideband" title="Permalink to this definition"></a></dt>
+<dd><p>Reduce overlapping borders between contiguous facets (2D).</p>
+<p>Additive reduction of the duplicated area (overlap regions) for a 2D
+image tessellation (2D communication grid).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_overlap</strong> (<em>double[:, :, :]</em>) – Spatial facet considered (with overlap).</p></li>
+<li><p><strong>overlap_size</strong> (<em>int[2, 1]</em>) – Size of the left and top facet extensions [2,1].</p></li>
+<li><p><strong>Qy</strong> (<em>int</em>) – Number of spatial facets (along the y axis).</p></li>
+<li><p><strong>Qx</strong> (<em>int</em>) – Number of spatial facets (along the x axis).</p></li>
+<li><p><strong>Qc</strong> (<em>int</em>) – Number of spectral facets (along the z axis).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>x_overlap</strong> – Updated spatial facet.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>double[:, :, :]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.comm2d_update_borders">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">comm2d_update_borders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_overlap</span></em>, <em class="sig-param"><span class="pre">overlap_size</span></em>, <em class="sig-param"><span class="pre">overlap_south_east</span></em>, <em class="sig-param"><span class="pre">overlap_south</span></em>, <em class="sig-param"><span class="pre">overlap_east</span></em>, <em class="sig-param"><span class="pre">Qy</span></em>, <em class="sig-param"><span class="pre">Qx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.comm2d_update_borders" title="Permalink to this definition"></a></dt>
+<dd><p>Update facet overlap (2D image tessellation and communication grid).</p>
+<p>Update the overlapping regions between contiguous facets based on a 2D
+image tessellation (2D communication grid).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_overlap</strong> (<em>double[:, :, :]</em>) – Spatial facet considered (with overlap).</p></li>
+<li><p><strong>overlap_size</strong> (<em>int[2,1]</em>) – Size of the left and top facet extensions [2,1].</p></li>
+<li><p><strong>overlap_south_east</strong> (<em>int[2,1]</em>) – Size of the overlap for the south-east neighbour [2,1]</p></li>
+<li><p><strong>overlap_south</strong> (<em>int[2,1]</em>) – Size of the overlap for the northern neighbour [2,1].</p></li>
+<li><p><strong>overlap_east</strong> (<em>int[2,1]</em>) – Size of the overlap for the eastern neighbour [2,1].</p></li>
+<li><p><strong>Qy</strong> (<em>int</em>) – Number of spatial facets along the y axis.</p></li>
+<li><p><strong>Qx</strong> (<em>int</em>) – Number of spatial facets along the x axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>x_overlap</strong> – Spatial facet with updated borders.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>double[:, :, :]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.comm2d_update_borders_wideband">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">comm2d_update_borders_wideband</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_overlap</span></em>, <em class="sig-param"><span class="pre">overlap_size</span></em>, <em class="sig-param"><span class="pre">overlap_south_east</span></em>, <em class="sig-param"><span class="pre">overlap_south</span></em>, <em class="sig-param"><span class="pre">overlap_east</span></em>, <em class="sig-param"><span class="pre">Qy</span></em>, <em class="sig-param"><span class="pre">Qx</span></em>, <em class="sig-param"><span class="pre">Qc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.comm2d_update_borders_wideband" title="Permalink to this definition"></a></dt>
+<dd><p>Update facet overlap (2D image tessellation and communication grid).</p>
+<p>Update the overlapping regions between contiguous facets based on a 2D
+image tessellation (2D communication grid).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_overlap</strong> (<em>double[:, :, :]</em>) – Spatial facet considered (with overlap).</p></li>
+<li><p><strong>overlap_size</strong> (<em>int[2,1]</em>) – Size of the left and top facet extensions [2,1].</p></li>
+<li><p><strong>overlap_south_east</strong> (<em>int[2,1]</em>) – Size of the overlap for the south-east neighbour [2,1].</p></li>
+<li><p><strong>overlap_south</strong> (<em>int[2,1]</em>) – Size of the overlap for the northern neighbour [2,1].</p></li>
+<li><p><strong>overlap_east</strong> (<em>int[2,1]</em>) – Size of the overlap for the eastern neighbour [2,1].</p></li>
+<li><p><strong>Qy</strong> (<em>int</em>) – Number of spatial facets along the y axis.</p></li>
+<li><p><strong>Qx</strong> (<em>int</em>) – Number of spatial facets along the x axis.</p></li>
+<li><p><strong>Qc</strong> (<em>int</em>) – Number of spectral facets along the z axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>x_overlap</strong> – Spatial facet with updated borders.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>double[:, :, :]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.compute_size">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">compute_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">status</span></em>, <em class="sig-param"><span class="pre">L</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.compute_size" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the number of wavelet coefficients generated for a facet.</p>
+<p>Compute the number of wavelet coefficients generated for one facet by the
+faceted wavelet transform described in <span id="id2">[<a class="reference internal" href="biblio.html#id4" title="Zdeněk Pruša. Segmentwise discrete wavelet transform. PhD thesis, Brno university of technology, 2012.">Prusa2012</a>]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>I</strong> (<em>int[2]</em>) – Facet start index [1,2].</p></li>
+<li><p><strong>dims</strong> (<em>int[2]</em>) – Dimension of the current facet (w/o overlap) .</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels.</p></li>
+<li><p><strong>status</strong> (<em>array</em>) – Status of the facet (first/last) [1,2] value {-1, 0, 1, Nan} for
+(first, none, last, both).</p></li>
+<li><p><strong>L</strong> (<em>int</em>) – Length of the filter involved in the wavelet decomposition.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>dims_PsitLx_crop</strong> (<em>int[:, :]</em>) – Dimension of the wavelet coefficients at each stage of the
+transform. [J+1,2]</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[:, :]</em>) – Number of valid coefficients. [J+1,2]</p></li>
+<li><p><strong>Ij</strong> (<em>int[:, :]</em>) – Start index (in the global image) of the facet needed to compute the
+jth level of the wavelet decomposition. [J+1,2]</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.generate_weights">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">generate_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">qx</span></em>, <em class="sig-param"><span class="pre">qy</span></em>, <em class="sig-param"><span class="pre">Qx</span></em>, <em class="sig-param"><span class="pre">Qy</span></em>, <em class="sig-param"><span class="pre">window_type</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">dims_o</span></em>, <em class="sig-param"><span class="pre">d</span></em>, <em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.generate_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the weighting matrix for a single facet.</p>
+<p>Generate the weighting matrix of a single facet invlved in the faceted
+nuclear norm term.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qx</strong> (<em>int</em>) – Facet index along axis x.</p></li>
+<li><p><strong>qy</strong> (<em>int</em>) – Facet index along axis y.</p></li>
+<li><p><strong>Qx</strong> (<em>int</em>) – Number of facets along axis x.</p></li>
+<li><p><strong>Qy</strong> (<em>int</em>) – Number of facets along axis y.</p></li>
+<li><p><strong>window_type</strong> (<em>string</em>) – Name of the window considered. Possible values: <code class="docutils literal notranslate"><span class="pre">'triangular'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'hamming'</span></code>, <code class="docutils literal notranslate"><span class="pre">'pc'</span></code> (piecewise constant).</p></li>
+<li><p><strong>dims</strong> (<em>int[2, 1]</em>) – Size of the tile (w/o overlap) [2, 1].</p></li>
+<li><p><strong>dims_o</strong> (<em>int[2, 1]</em>) – Dimension of the facet [2, 1].</p></li>
+<li><p><strong>d</strong> (<em>int[2, 1]</em>) – Number of pixels in the overlap along each direction [2, 1].</p></li>
+<li><p><strong>varargin</strong> (<em>double</em>) – Minimum value for the triangular window (only active in this case).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.get_overlap_size">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">get_overlap_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">Q</span></em>, <em class="sig-param"><span class="pre">overlap_fraction</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.get_overlap_size" title="Permalink to this definition"></a></dt>
+<dd><p>Convert fraction of overlap into the corresponding number of pixels.</p>
+<p>Compute the number of pixels corresponding to a prescribed overlap
+fraction (specified relatively to the size of the overlapping facet).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int[2]</em>) – Size of the full image [1, 2].</p></li>
+<li><p><strong>Q</strong> (<em>int[2]</em>) – Number of facets along each dimension [1, 2].</p></li>
+<li><p><strong>overlap_fraction</strong> (<em>array, double</em>) – Overlap fraction between two consecutive facets, given along each
+dimension (fraction expressed with respect to the final facet size).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><span><code class="xref mat mat-exc docutils literal notranslate"><span class="pre">AssertionError</span></code></span> – All entries in <code class="docutils literal notranslate"><span class="pre">overlap_fraction</span></code> need to be strictly lower than 0.5
+    (only overlap between consecutive facets is supported).</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>overlap_size</strong> – Number of pixels contained in the overlap region.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int[2]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.isdwt2">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">isdwt2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">SPsitLx</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em>, <em class="sig-param"><span class="pre">lo</span></em>, <em class="sig-param"><span class="pre">hi</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">pre_offset</span></em>, <em class="sig-param"><span class="pre">post_offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.isdwt2" title="Permalink to this definition"></a></dt>
+<dd><p>Inverse facet wavelet transform.</p>
+<p>Inverse operator to compute the contribution of a single facet to the
+full wavelet transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>SPsitLx</strong> (<em>double[:]</em>) – Wavelet coefficients obtained from the facet of interest.</p></li>
+<li><p><strong>I</strong> (<em>int[2]</em>) – Starting index of the tile (no overlap) [1,2].</p></li>
+<li><p><strong>dims</strong> (<em>int[2]</em>) – dimension of tbe underlying tile (no overlap) [1,2].</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[:, :]</em>) – Dimension of the wavelet facets for each level of the decomposition
+level, for each dictionary [M(J+1),2] {from level 1 to J}.</p></li>
+<li><p><strong>lo</strong> (<em>array</em>) – Low-pass synthesis wavelet filter. [1,L]</p></li>
+<li><p><strong>hi</strong> (<em>array</em>) – High-pass synthesis wavelet filter. [1,L]</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>pre_offset</strong> (<em>int[2]</em>) – Number of coefficients to be cropped from the start of the
+reconstructed facet [1,2].</p></li>
+<li><p><strong>post_offset</strong> (<em>int[2]</em>) – Number of coefficients to be cropped at the end of the
+reconstructed facet [1,2].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PsiSty</strong> – Inverse transform of the input matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.isdwt2_faceting">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">isdwt2_faceting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">SPsitLx</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">left_offset</span></em>, <em class="sig-param"><span class="pre">right_offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.isdwt2_faceting" title="Permalink to this definition"></a></dt>
+<dd><p>Inverse facet wavelet transform for a single wavelet dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>SPsitLx</strong> (<em>array[:]</em>) – Wavelet coefficients.</p></li>
+<li><p><strong>I</strong> (<em>int[2]</em>) – Facet start index [1, 2].</p></li>
+<li><p><strong>dims</strong> (<em>int[2]</em>) – Dimension of the current facet (w/o overlap).</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[J+1, 1]</em>) – Number of wavelet coefficients obtained at each scale. [J+1, 1].</p></li>
+<li><p><strong>wavelet</strong> (<em>string</em>) – Name of the wavelet dictionary considered.</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>left_offset</strong> (<em>int[1, 2]</em>) – Number of coefficients to be cropped from the left of the
+reconstructed facet [1, 2].</p></li>
+<li><p><strong>right_offset</strong> (<em>int[1, 2]</em>) – Number of coefficients to be cropped from the right of the
+reconstructed facet [1, 2].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PsiSty</strong> – Image facet (with overlap).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array[:, :]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.isdwt2_sara">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">isdwt2_sara</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">SPsitLx</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">I_overlap</span></em>, <em class="sig-param"><span class="pre">dims_overlap</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">pre_offset_dict</span></em>, <em class="sig-param"><span class="pre">post_offset_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.isdwt2_sara" title="Permalink to this definition"></a></dt>
+<dd><p>Inverse facet SARA operator.</p>
+<p>Inverse operator to compute the contribution of the SARA prior to a
+single facet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>SPsitLx</strong> (<em>array[:]</em>) – Wavelet coefficients obtained from the facet of interest.</p></li>
+<li><p><strong>I</strong> (<em>int[2]</em>) – Starting index of the tile (no overlap) [1,2].</p></li>
+<li><p><strong>dims</strong> (<em>int[2]</em>) – Tile dimension (no overlap) [1,2].</p></li>
+<li><p><strong>I_overlap</strong> (<em>int[2]</em>) – Starting index of the facet (including overlap) [1,2].</p></li>
+<li><p><strong>dims_overlap</strong> (<em>int[:, :]</em>) – Dimension of the extended image facets (including overlap) [M,2].</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[:, :]</em>) – Dimension of the wavelet facets for each level of the decomposition
+level, for each dictionary [M(J+1),2] {from level 1 to J}.</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>wavelet</strong> (<em>cell{1, :} of string</em>) – Name of the wavelet dictionaries considered {M,1}.</p></li>
+<li><p><strong>pre_offset_dict</strong> (<em>int[:, :]</em>) – Number of coefficients to be cropped from the start of the
+reconstructed facet [M,2].</p></li>
+<li><p><strong>post_offset_dict</strong> (<em>int[:, :]</em>) – Number of coefficients to be cropped from the end of the
+reconstructed facet [M,2].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PsiSty</strong> – inverse transform of the input matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.isdwt2_sara_faceting">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">isdwt2_sara_faceting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">SPsitLx</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">I_overlap</span></em>, <em class="sig-param"><span class="pre">dims_overlap</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">left_offset</span></em>, <em class="sig-param"><span class="pre">right_offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.isdwt2_sara_faceting" title="Permalink to this definition"></a></dt>
+<dd><p>Inverse facet SARA operator (simplified version for faceting code).</p>
+<p>Inverse operator to compute the contribution of the SARA prior to a
+single facet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>SPsitLx</strong> (<em>array[:]</em>) – Wavelet coefficients obtained from the facet of interest.</p></li>
+<li><p><strong>I</strong> (<em>int[2]</em>) – Starting index of the facet (without overlap) [1,2].</p></li>
+<li><p><strong>dims</strong> (<em>int[2]</em>) – Facet dimension (without overlap) [1,2].</p></li>
+<li><p><strong>I_overlap</strong> (<em>int[2]</em>) – Starting index of the facet (including overlap) [1,2].</p></li>
+<li><p><strong>dims_overlap</strong> (<em>int[:, :]</em>) – Dimension of the extended image facets (including overlap) [M,2].</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[:, :]</em>) – Dimension of the wavelet facets for each level of the decomposition
+level, for each dictionary [M(J+1),2] {from level 1 to J}.</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>wavelet</strong> (<em>cell{1, :} of string</em>) – Name of the wavelet dictionaries considered {M,1}.</p></li>
+<li><p><strong>left_offset</strong> (<em>int[:, :]</em>) – Number of coefficients to be cropped from the left of the
+reconstructed facet [M,2].</p></li>
+<li><p><strong>right_offset</strong> (<em>int[:, :]</em>) – Number of coefficients to be cropped from the right of the
+reconstructed facet [M,2].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PsiSty</strong> – Inverse transform of the input matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.local_split_range">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">local_split_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">nchunks</span></em>, <em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">index</span></em>, <em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.local_split_range" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the indices delimiting the portion of 1:N in position <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p>
+<p>Tessellates 1:N into (non-)overlapping subsets, each containing
+approximately the same number of indices, following the decomposition
+rules specified in varargin. Returns only the first and last indices
+corresponding to the chunk in position <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nchunks</strong> (<em>int</em>) – Number of segments.</p></li>
+<li><p><strong>N</strong> (<em>int</em>) – Number of indices.</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – Position of the chunk considered.</p></li>
+<li><p><strong>varargin</strong> (<em>int</em>) – Defines the amount of pixels in the overlap between consecutive
+segments (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rg</strong> – First/last index of the segment in position <code class="docutils literal notranslate"><span class="pre">index</span></code> [1, 2].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int[<cite>nchunks</cite>, 2]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.n_wavelet_coefficients">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">n_wavelet_coefficients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">m</span></em>, <em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">extension_mode</span></em>, <em class="sig-param"><span class="pre">nlevel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.n_wavelet_coefficients" title="Permalink to this definition"></a></dt>
+<dd><p>Compute number of wavelet coefficients.</p>
+<p>Determine the number of wavelet coefficients resulting from a 2D
+decomposition by a filter of length m [1, 2] (2D), for a given type of
+boundary conditions and number of decomposition levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>int[:]</em>) – Size of the considered filters [K, 1] (1 per type of dictionary).</p></li>
+<li><p><strong>N</strong> (<em>int[2]</em>) – Image dimension [1, 2].</p></li>
+<li><p><strong>extension_mode</strong> (<em>string</em>) – Type of boundary extension (‘per’, ‘zpd’, ‘sym’).</p></li>
+<li><p><strong>nlevel</strong> (<em>int</em>) – Number of decomposition level.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>dims</strong> (<em>int[:, 2]</em>) – Size of the coefficients at each level of the decomposition
+[nlevel+1,2].</p></li>
+<li><p><strong>s</strong> (<em>int</em>) – Total number of wavelet coefficients.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.op_p_sp_wlt_basis">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">op_p_sp_wlt_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">basis</span></em>, <em class="sig-param"><span class="pre">nlevel</span></em>, <em class="sig-param"><span class="pre">Ny</span></em>, <em class="sig-param"><span class="pre">Nx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.op_p_sp_wlt_basis" title="Permalink to this definition"></a></dt>
+<dd><p>Resturns the operator to the sparsity wavelet basis passed as argument
+Each basis is considered to be distributed to a different node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>basis</strong> (<em>cell[string]</em>) – Cell of strigs containing the names of the wavelets to be used, eg:
+{‘db1’, ‘db2’, ‘self’}.</p></li>
+<li><p><strong>nlevel</strong> (<em>int</em>) – Decomposition level.</p></li>
+<li><p><strong>Ny</strong> (<em>int</em>) – Image size.</p></li>
+<li><p><strong>Nx</strong> (<em>int</em>) – Flag to reset the sizes used for reconstruction.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>Psi</strong> (<em>cell{anonymous functions}</em>) – Function handles for direct operator.</p></li>
+<li><p><strong>Psit</strong> (<em>cell{anonymous function}</em>) – Function handles for adjoint operator.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.op_sp_wlt_basis">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">op_sp_wlt_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">basis</span></em>, <em class="sig-param"><span class="pre">nlevel</span></em>, <em class="sig-param"><span class="pre">Ny</span></em>, <em class="sig-param"><span class="pre">Nx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.op_sp_wlt_basis" title="Permalink to this definition"></a></dt>
+<dd><p>Resturns anynomous functions corresponding to the sparsity wavelet basis
+SARA <span id="id3">[<a class="reference internal" href="biblio.html#id2" title="R. E. Carrillo, J. D. McEwen, and Y. Wiaux. Sparsity averaging reweighted analysis (SARA): a novel algorithm for radio-interferometric imaging. Monthly Notices of the Royal Astronomical Society, 426(2):1223–1234, 2012.">Carrillo2012</a>]</span> specified from the wavelets taken in <cite>basis</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>basis</strong> (<em>cell (strings)</em>) – Cell of strings with the names of the wavelets to be used.</p></li>
+<li><p><strong>nlevel</strong> (<em>int</em>) – Number of decomposition levels.</p></li>
+<li><p><strong>Ny</strong> (<em>int</em>) – Image size (axis 1).</p></li>
+<li><p><strong>Nx</strong> (<em>int</em>) – Image size (axis 2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>Psi</strong> (<em>anonymous function</em>) – Anonymous function implementating the direct SARA operator.</p></li>
+<li><p><strong>Psit</strong> (<em>anonymous function</em>) – Anonymous function implementating the inverse SARA operator.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basis</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;db1&#39;</span><span class="p">,</span> <span class="s1">&#39;db2&#39;</span><span class="p">,</span> <span class="s1">&#39;self&#39;</span><span class="p">};</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlevel</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Ny</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nx</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">Psi</span><span class="p">,</span> <span class="n">Psit</span><span class="p">]</span> <span class="o">=</span> <span class="n">op_sp_wlt_basis</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">nlevel</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">Nx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.place2DSegment">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">place2DSegment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">im</span></em>, <em class="sig-param"><span class="pre">PsiSty</span></em>, <em class="sig-param"><span class="pre">I_facet_min</span></em>, <em class="sig-param"><span class="pre">dims_facet_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.place2DSegment" title="Permalink to this definition"></a></dt>
+<dd><p>Recombine image coefficients coming from the inverse faceted wavelet transform
+of a single facet back into a full-size image (exclusively used for testing
+and debugging purposes).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>im</strong> (<em>array[:, :]</em>) – Input image.</p></li>
+<li><p><strong>PsiSty</strong> (<em>array[:]</em>) – Coefficients associated to a given facet.</p></li>
+<li><p><strong>I_facet_min</strong> (<em>int[2, 1]</em>) – Starting index of the associated image facet.</p></li>
+<li><p><strong>dims_facet_max</strong> – Dimension of the image facet.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>im</strong> – Updated image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array[:, :]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_overlap</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">status</span></em>, <em class="sig-param"><span class="pre">lo</span></em>, <em class="sig-param"><span class="pre">hi</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2" title="Permalink to this definition"></a></dt>
+<dd><p>Forward facet wavelet transform.</p>
+<p>Forward operator to compute the contribution of the a single input facet
+to the whole wavelet transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_overlap</strong> (<em>array[:, :]</em>) – Image facet (with overlap).</p></li>
+<li><p><strong>dims</strong> (<em>int[2]</em>) – Dimensions of the underlying image tile. [1,2].</p></li>
+<li><p><strong>status</strong> (<em>int[2]</em>) – Indicates whether the facet is the first (or the last) along each
+dimension. [1,2] (first: -1, last: 1, none: 0, or both: NaN)).</p></li>
+<li><p><strong>lo</strong> (<em>array[1, :]</em>) – Low-pass analysis wavelet filter. [1,L]</p></li>
+<li><p><strong>hi</strong> (<em>array[1, :]</em>) – High-pass analysis wavelet filter. [1,L]</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[:]</em>) – Number of wavelet coefficients obtained at each scale. [J+1,1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>SPsitLx</strong> – Associated wavelet coefficients.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array[:, :]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2_faceting">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2_faceting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">imApprox</span></em>, <em class="sig-param"><span class="pre">status</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2_faceting" title="Permalink to this definition"></a></dt>
+<dd><p>Forward facet wavelet transform.</p>
+<p>Forward operator to compute the contribution of the a single input facet
+to the whole wavelet transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imApprox</strong> (<em>array[:, :]</em>) – Image facet (with overlap).</p></li>
+<li><p><strong>status</strong> (<em>array</em>) – Indicates whether the facet is the first (or the last) along each
+dimension. [1,2] (first: -1, last: 1, none: 0, or both: NaN)).</p></li>
+<li><p><strong>wavelet</strong> (<em>string</em>) – Name of the wavelet dictionary.</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>Ncoefs</strong> (int[<cite>J</cite>]) – Number of wavelet coefficients obtained at each scale. [J+1,1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>SPsitLx</strong> – Associated wavelet coefficients.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array[:]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2_max_nfacets">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2_max_nfacets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">nlevel</span></em>, <em class="sig-param"><span class="pre">filter_length</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2_max_nfacets" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of facets admissible for the faceted wavelet transform.</p>
+<p>Returns the maximum admissible number of facets so that the overlap
+required by the faceted wavelet transform does not exceed the size of a
+tile (i.e., tessellation of <code class="docutils literal notranslate"><span class="pre">1:N</span></code> into non-overlapping subsets of
+successive integers).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Number if entries in the segment to be tessellated.</p></li>
+<li><p><strong>nlevel</strong> (<em>int</em>) – Number of decomposition scales on the wavelet decomposition</p></li>
+<li><p><strong>filter_length</strong> (<em>int</em>) – Size of the filter associated with the wavelet considered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Maximum number of facets which can be considered.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2_sara">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2_sara</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_overlap</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">offset</span></em>, <em class="sig-param"><span class="pre">status</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2_sara" title="Permalink to this definition"></a></dt>
+<dd><p>Facet SARA operator.</p>
+<p>Forward operator to compute the contribution of the SARA prior for a
+single input facet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_overlap</strong> (<em>array[:, :]</em>) – Image facet (with overlap).</p></li>
+<li><p><strong>I</strong> (<em>int[2]</em>) – Starting index of the tile (without overlap) [1,2].</p></li>
+<li><p><strong>dims</strong> (<em>int[2]</em>) – Dimensions of the image tile [1,2]</p></li>
+<li><p><strong>offset</strong> (<em>int[2]</em>) – Offset to be considered for each dictionary w.r.t. the largest
+overlapping facet x_overlap (different overlap needed for each
+dictionary) [M,1].</p></li>
+<li><p><strong>status</strong> (<em>int[2]</em>) – Indicates whether the facet is the first (or the last) along each
+dimension [1,2].</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>wavelet</strong> (<em>cell{1, :} of string</em>) – Name of the wavelet dictionaries considered {1,M}.</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[:]</em>) – Number of wavelet coefficients for each scale, corresponding to each
+dictionary involved in the transform [M*(J+1),1].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>SPsitLx</strong> – Wavelet coefficients.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array[:]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2_sara_faceting">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2_sara_faceting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_overlap</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">offset</span></em>, <em class="sig-param"><span class="pre">status</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">Ncoefs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2_sara_faceting" title="Permalink to this definition"></a></dt>
+<dd><p>Facet SARA operator (simplified version for faceting article).</p>
+<p>Forward operator to compute the contribution of the SARA prior for a
+single input facet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_overlap</strong> (<em>array[:, :]</em>) – Image facet (with overlap).</p></li>
+<li><p><strong>I</strong> (<em>int[2]</em>) – Starting index of the tile (without overlap) [1,2].</p></li>
+<li><p><strong>offset</strong> (<em>int[2]</em>) – Offset to be considered for each dictionary w.r.t. the largest
+overlapping facet x_overlap (different overlap needed for each
+dictionary) [M,1].</p></li>
+<li><p><strong>status</strong> (<em>int[2]</em>) – Indicates whether the facet is the first (or the last) along each
+dimension [1,2].</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of decomposition levels considered.</p></li>
+<li><p><strong>wavelet</strong> (<em>cell{1, :} of string</em>) – Name of the wavelet dictionaries considered {1,M}.</p></li>
+<li><p><strong>Ncoefs</strong> (<em>int[:]</em>) – Number of wavelet coefficients for each scale, corresponding to each
+dictionary involved in the transform [M*(J+1),1].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>SPsitLx</strong> – Wavelet coefficients.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array[:]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2_setup">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">L</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2_setup" title="Permalink to this definition"></a></dt>
+<dd><p>Setup faceted SARA prior.</p>
+<p>Compute the auxliary variables (offset, overlap extension per dictionary)
+necessary to define the segmented wavelet transforms underlying the
+faceted SARA prior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int[2]</em>) – Full image dimension. [1,2]</p></li>
+<li><p><strong>I</strong> (<em>int[:, 2]</em>) – Start index of each image tile (using 0-indexing) [Q,2]</p></li>
+<li><p><strong>dims</strong> (<em>int[:, 2]</em>) – Dimensions of the image tiles. [Q,2]</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of wavelet decomposition levels.</p></li>
+<li><p><strong>wavelet</strong> (<em>cell{:, 1} of string</em>) – Name of the wavelet dictionaries. {M,1}</p></li>
+<li><p><strong>L</strong> (<em>int[:]</em>) – Size of the wavelet filters. [M,1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>I_overlap_ref</strong> (<em>array</em>) – start index of the facet within the full  image. [Q,2]</p></li>
+<li><p><strong>dims_overlap_ref</strong> (<em>array</em>) – Dimension of the facet (i.e., with  overlap) to be extracted from the
+full image. [Q,2]</p></li>
+<li><p><strong>I_overlap</strong> (<em>array</em>) – Start index of the facet (for each  dictionary) within the full
+image. {Q,1}[M,2]</p></li>
+<li><p><strong>dims_overlap</strong> (<em>cell{:, 1} of array</em>) – Dimension of the facet considered by each dictionary (including 0
+coefficients from padding). {Q,1}[M,2]</p></li>
+<li><p><strong>status</strong> (<em>array</em>) – Status of the facet along each dimension (i.e., whether it is the
+‘first’ facet, ‘last’, ‘none’ of the previous option or ‘both’). The
+associated status value are respectively -1, 1, 0 and NaN. [Q,2]</p></li>
+<li><p><strong>offset</strong> (<em>array</em>) – Offset to get the index of the first element (along each dimension)
+to be considered in the facet for each wavelet dictionary.</p></li>
+<li><p><strong>pre_offset</strong> (<em>array</em>) – Number of coefficients to be cropped from the beginning of the global
+facet [M,2]. (offset to get position of the first non-zero element in
+the “global” facet)</p></li>
+<li><p><strong>post_offset</strong> (<em>array</em>) –  Number of coefficients to be cropped from the end of the global facet
+[M,2]. (offset to get position of the last non-zero element in the
+“global” facet)</p></li>
+<li><p><strong>Ncoefs</strong> (<em>cell</em>) – Size of the details coefficients for each dictionary at each level of
+the decomposition {Q}[(M-1)*(J+1)+1,2] if Dirac dict. is present.</p></li>
+<li><p><strong>pre_offset_dict</strong> (<em>array</em>) – For each dictionary, number of coefficients to be cropped from the
+beginning of  the global facet [M,2].</p></li>
+<li><p><strong>post_offset_dict</strong> (<em>array</em>) – For each dictionary, number of coefficients to be cropped from the
+end of the global facet [M,2].</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All indexes reported above (<code class="docutils literal notranslate"><span class="pre">I_*</span></code>) start from 0 (not from 1).</p>
+</div>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2_setup_test">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2_setup_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">I</span></em>, <em class="sig-param"><span class="pre">dims</span></em>, <em class="sig-param"><span class="pre">J</span></em>, <em class="sig-param"><span class="pre">wavelet</span></em>, <em class="sig-param"><span class="pre">L</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2_setup_test" title="Permalink to this definition"></a></dt>
+<dd><p>Setup faceted SARA prior.</p>
+<p>Compute the auxliary variables (offset, overlap extension per dictionary)
+necessary to define the segmented wavelet transforms underlying the
+faceted SARA prior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int[2]</em>) – Full image dimension. [1,2]</p></li>
+<li><p><strong>I</strong> (<em>int[:, 2]</em>) – Start index of each image tile (using 0-indexing) [Q,2]</p></li>
+<li><p><strong>dims</strong> (<em>int[:, 2]</em>) – Dimensions of the image tiles. [Q,2]</p></li>
+<li><p><strong>J</strong> (<em>int</em>) – Number of wavelet decomposition levels.</p></li>
+<li><p><strong>wavelet</strong> (<em>cell{:, 1} of string</em>) – Name of the wavelet dictionaries. {M,1}</p></li>
+<li><p><strong>L</strong> (<em>int[:]</em>) – Size of the wavelet filters. [M,1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>I_overlap_ref</strong> (<em>array</em>) – start index of the facet within the full  image. [Q,2]</p></li>
+<li><p><strong>dims_overlap_ref</strong> (<em>array</em>) – Dimension of the facet (i.e., with  overlap) to be extracted from the
+full image. [Q,2]</p></li>
+<li><p><strong>I_overlap</strong> (<em>array</em>) – Start index of the facet (for each  dictionary) within the full
+image. {Q,1}[M,2]</p></li>
+<li><p><strong>dims_overlap</strong> (<em>cell{:, 1} of array</em>) – Dimension of the facet considered by each dictionary (including 0
+coefficients from padding). {Q,1}[M,2]</p></li>
+<li><p><strong>status</strong> (<em>array</em>) – Status of the facet along each dimension (i.e., whether it is the
+‘first’ facet, ‘last’, ‘none’ of the previous option or ‘both’). The
+associated status value are respectively -1, 1, 0 and NaN. [Q,2]</p></li>
+<li><p><strong>offset</strong> (<em>array</em>) – Offset to get the index of the first element (along each dimension)
+to be considered in the facet for each wavelet dictionary.</p></li>
+<li><p><strong>pre_offset</strong> (<em>array</em>) – Number of coefficients to be cropped from the beginning of the global
+facet [M,2]. (offset to get position of the first non-zero element in
+the “global” facet)</p></li>
+<li><p><strong>post_offset</strong> (<em>array</em>) –  Number of coefficients to be cropped from the end of the global facet
+[M,2]. (offset to get position of the last non-zero element in the
+“global” facet)</p></li>
+<li><p><strong>Ncoefs</strong> (<em>cell</em>) – Size of the details coefficients for each dictionary at each level of
+the decomposition {Q}[(M-1)*(J+1)+1,2] if Dirac dict. is present.</p></li>
+<li><p><strong>pre_offset_dict</strong> (<em>array</em>) – For each dictionary, number of coefficients to be cropped from the
+beginning of  the global facet [M,2].</p></li>
+<li><p><strong>post_offset_dict</strong> (<em>array</em>) – For each dictionary, number of coefficients to be cropped from the
+end of the global facet [M,2].</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.sdwt2_test_nfacets">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">sdwt2_test_nfacets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">nfacets</span></em>, <em class="sig-param"><span class="pre">nlevel</span></em>, <em class="sig-param"><span class="pre">filter_length</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.sdwt2_test_nfacets" title="Permalink to this definition"></a></dt>
+<dd><p>Test whether a number of facets is valid for the faceted wavelet
+transform is valid.</p>
+<p>Test if a candiate number of facets is such that the overlap
+required by the faceted wavelet transform does not exceed the size of a
+tile (i.e., tessellation of <code class="docutils literal notranslate"><span class="pre">1:N</span></code> into non-overlapping subsets of
+successive integers). If not, the function returns the maximum admissible
+number of facets satisfying this condition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Number if entries in the segment to be tessellated.</p></li>
+<li><p><strong>nfacets</strong> (<em>int</em>) – Selected number of facets.</p></li>
+<li><p><strong>nlevel</strong> (<em>int</em>) – Number of decomposition scales on the wavelet decomposition</p></li>
+<li><p><strong>filter_length</strong> (<em>int</em>) – Size of the filter associated with the wavelet considered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Number of facets which can be considered (equal to the initial value
+taken for <code class="docutils literal notranslate"><span class="pre">nfacets</span></code> if it satisfied the requirements).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.split_range">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">split_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">nchunks</span></em>, <em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.split_range" title="Permalink to this definition"></a></dt>
+<dd><p>Tessellates 1:N into multiple subsets.</p>
+<p>Tessellates 1:N into (non-)overlapping subsets, each containing
+approximately the same number of indices, following the decomposition
+rules specified in varargin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nchunks</strong> (<em>int</em>) – Number of segments.</p></li>
+<li><p><strong>N</strong> (<em>int</em>) – Number of indices.</p></li>
+<li><p><strong>varargin</strong> (<em>int</em>) – Defines overlap between segments (if any)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rg</strong> – First/last index of each segment [nchunks, 2].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int[:, 2]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.split_range_interleaved">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">split_range_interleaved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">nchunks</span></em>, <em class="sig-param"><span class="pre">N</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.split_range_interleaved" title="Permalink to this definition"></a></dt>
+<dd><p>Tessellates 1:N into interleaved subsets.</p>
+<p>Tessellates 1:N into subsets of interleaved indices, each containing
+approximately the same number of indices (downsampling of 1:N).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nchunks</strong> (<em>int</em>) – Number of segments.</p></li>
+<li><p><strong>N</strong> (<em>int</em>) – Total number of indices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rg</strong> – First/last index of each segment {nchunks, 1}.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>cell{:, 1} of array (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="biblio.html" class="btn btn-neutral float-left" title="References" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lib.html" class="btn btn-neutral float-right" title="lib module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, P.-A. Thouvenin, A. Dabbech, M. Jiang, A. Jackson, Y. Wiaux, A. Abdulaziz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
