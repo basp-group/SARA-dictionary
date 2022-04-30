@@ -1,5 +1,6 @@
-# Faceted wavelet transform
+# SARA dictionary
 
+![language](https://img.shields.io/badge/language-MATLAB-orange.svg)
 [![license](https://img.shields.io/badge/license-GPL--3.0-brightgreen.svg)](LICENSE)
 [![docs-page](https://img.shields.io/badge/docs-latest-blue)](https://basp-group.github.io/SARA-dictionary/)
 
@@ -7,16 +8,24 @@
 
 ## Description
 
-- MATLAB implementation of the "segment-wise 2D discrete wavelet transform" described in
+- ``SARA-dictionary`` contains a MATLAB implementation of the SARA wavelet dictionary desribed in [1] using a "segment-wise 2D discrete wavelet transform" [2].
+Both a serial and a distributed implementation of the dictionary are proposed
 
-> Z. PRŮŠA -- <strong>Segmentwise Discrete Wavelet Transform.</strong>, Dissertation thesis, Brno University of Technology, 2012.
+- The ``SARA-dictionary`` library is a core dependency of the
+[`Faceted-Hyper-SARA`](https://github.com/basp-group/Faceted-Hyper-SARA) wideband imaging library for radio-interferometry.
 
-- The original codes [available online](https://www.utko.fekt.vut.cz/~rajmic/segwt/index_en.html) have been significantly refactored for use in the MATLAB codes associated with the following paper
+- Codes ublished by the author of [2], [available online](https://www.utko.fekt.vut.cz/~rajmic/segwt/index_en.html), have been significantly refactored for use in the MATLAB codes associated with the following paper.
 
 > P.-A. Thouvenin, A. Abdulaziz, M. Jiang, A. Dabbech, A. Repetti, A. Jackson, J.-P. Thiran, Y. Wiaux -
 > <strong>Parallel faceted imaging in radio interferometry via proximal splitting (Faceted HyperSARA)</strong>, submitted, <a href="https://researchportal.hw.ac.uk/en/publications/parallel-faceted-imaging-in-radio-interferometry-via-proximal-spl">preprint available online</a>, Jan. 2020.
 
 **Authors/contributors:** P.-A. Thouvenin, A. Dabbech.
+
+**References**
+
+> [1] R. E. Carrillo, J. D. McEwen and Y. Wiaux, [Sparsity Averaging Reweighted Analysis ({SARA}): a novel algorithm for radio-interferometric imaging](http://dx.doi.org/10.1093/mnras/stx755), *Mon. Not. Roy. Astron. Soc.*, 426(2):1223-1234, 2012.
+>
+> [2] Z. PRŮŠA -- <strong>Segmentwise Discrete Wavelet Transform.</strong>, Dissertation thesis, Brno University of Technology, 2012.
 
 ## Installation
 
