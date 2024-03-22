@@ -23,7 +23,7 @@ Both a serial and a distributed implementation of the dictionary are proposed
 
 **References**
 
-> [1] R. E. Carrillo, J. D. McEwen and Y. Wiaux, [Sparsity Averaging Reweighted Analysis ({SARA}): a novel algorithm for radio-interferometric imaging](http://dx.doi.org/10.1093/mnras/stx755), *Mon. Not. Roy. Astron. Soc.*, 426(2):1223-1234, 2012.
+> [1] R. E. Carrillo, J. D. McEwen and Y. Wiaux, [Sparsity Averaging Reweighted Analysis (SARA): a novel algorithm for radio-interferometric imaging]([http://dx.doi.org/10.1093/mnras/stx755](https://academic.oup.com/mnras/article/426/2/1223/974193)), *MNRAS*, 426(2):1223-1234, 2012.
 >
 > [2] Z. PRŮŠA -- <strong>Segmentwise Discrete Wavelet Transform.</strong>, Dissertation thesis, Brno University of Technology, 2012.
 
